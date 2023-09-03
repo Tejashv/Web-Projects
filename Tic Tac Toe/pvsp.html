@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic Tac Toe</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body> 
+  <button class="back-btn" onclick="window.location.href = 'index.html' "><i class="fas fa-arrow-left"></i></button>
+    <div class="container">
+        <h1>Tic Tac Toe - Player vs Player</h1>
+
+        <div class="chance-display">Current Player: X</div>
+
+        <div class="playground">
+
+            <div class="board center-board" id="board">
+                <div class="cell" data-row="0" data-col="0"></div>
+                <div class="cell" data-row="0" data-col="1"></div>
+                <div class="cell" data-row="0" data-col="2"></div>
+                <div class="cell" data-row="1" data-col="0"></div>
+                <div class="cell" data-row="1" data-col="1"></div>
+                <div class="cell" data-row="1" data-col="2"></div>
+          <div class="cell" data-row="2" data-col="0"></div>
+          <div class="cell" data-row="2" data-col="1"></div>
+          <div class="cell" data-row="2" data-col="2"></div>
+        </div>
+        <button id="reset-button">Reset Game</button>
+    </div>
+      </div>
+
+
+</body>
+<!-- css -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Borel&family=Ubuntu&display=swap');
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Raleway", sans-serif;
+    }
+
+    h1{
+       text-align: center;
+       margin-top: -10vh;
+  background: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);
+  background-clip: text;
+  -webkit-background-clip: text; /* For Safari/WebKit browsers */
+  color: transparent;
+}
+
+.back-btn{
+  background-color: transparent;
+  width: 5vw;
+  height: 5vh;
+  padding: 1px;
+  transition-property: all;
+  transition-duration: 2s;
+  border: transparent;
+}
+
+.back-btn:hover{
+ cursor: pointer;
+ background-image: linear-gradient( 180.7deg,  rgba(0,213,255,1) 2.5%, rgba(79,255,255,1) 97.7% );
+ border-bottom-right-radius: 20px;
+
+}
+
+.back-btn i{
+  width: 100%;
+  /* padding: 2px; */
+}
+
+    .board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2px; /* Adjust gap between cells */
+  width: 300px;
+  height: 300px;
+  margin: auto auto;
+  position: relative;
+  /* background-color: #222; Board background color */
+  /* border: 4px solid #444; Border around the board */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); */
+}
+
+.center-board{
+    margin: auto;
+}
+
+.container{
+    position: relative;
+    top: 15vh;
+}
+
+.playground{
+    position: relative;
+    top: 50%;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  color: #fff; /* Text color */
+  /* background-color: #444; Cell background color */
+  cursor: pointer;
+  user-select: none;
+}
+
+.cell[data-row="0"] {
+  border-top: none;
+}
+
+.cell[data-row="1"] {
+  border-top: 2px solid #444; /* Horizontal lines between rows */
+}
+
+.cell[data-row="2"] {
+  border-top: 2px solid #444; /* Horizontal lines between rows */
+  border-bottom: none;
+}
+
+.cell[data-col="0"] {
+  border-left: none;
+}
+
+.cell[data-col="1"] {
+  border-left: 2px solid #444; /* Vertical lines between columns */
+}
+
+.cell[data-col="2"] {
+  border-left: 2px solid #444; /* Vertical lines between columns */
+  border-right: none;
+}
+
+#reset-button {
+  display: block;
+  margin: 20px auto;
+  width: 10vw;
+  height: 7vh;
+  border-radius: 20px;
+  background-color: #00DBDE;
+  background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+  border: 2px azure;
+  
+  transition: all 1s ease; /* Add transitions for background properties */
+  cursor: pointer;
+}
+
+#reset-button:hover {
+  display: block;
+  margin: 20px auto;
+  width: 10vw;
+  height: 7vh;
+  border-radius: 20px;
+  background-color: #4158D0;
+  background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+  border: 2px azure;
+  cursor: pointer;
+  width: 12vw;
+}
+
+   
+    body {
+        font-family: 'Ubuntu', sans-serif;
+        height: 150vh;
+        background: #0099f7;
+        background: -webkit-linear-gradient(to right, #0099f7, #f11712);
+        background: linear-gradient(to right, #0099f7, #f11712);
+        overflow: hidden;
+    }
+    
+    html {
+        font-size: 16px;
+    }
+    
+    .animate-move {
+  animation: cellClickAnimation 0.3s ease-in-out;
+}
+
+@keyframes cellClickAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.modal-close {
+  background-color: #00DBDE;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.chance-display {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333; /* Adjust color as needed */
+}
+
+@media screen and (max-width: 768px) {
+  #reset-button {
+  display: block;
+  margin: 20px auto;
+  width: 30vw;
+  height: 5vh;
+  border-radius: 20px;
+  background-color: #00DBDE;
+  background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+  border: 2px azure;
+  
+  transition: all 1s ease; /* Add transitions for background properties */
+  cursor: pointer;
+}
+
+}
+</style>
+
+
+<!-- JavaScript -->
+<script>
+   const cells = document.querySelectorAll(".cell");
+const resetButton = document.getElementById("reset-button");
+const currentPlayerText = document.getElementById("current-player");
+let currentPlayer = "X";
+let gameActive = true;
+
+function handleCellClick(cell) {
+  const clickedCell = cell.target;
+
+  if (!gameActive || clickedCell.textContent !== "") {
+    return;
+  }
+
+  clickedCell.textContent = currentPlayer;
+  clickedCell.classList.add("animate-move");
+
+  if (checkWinner(currentPlayer)) {
+    showModal(`Player ${currentPlayer} wins!`);
+    gameActive = false;
+    return;
+  }
+
+  if (checkDraw()) {
+    showModal("It's a draw!");
+    gameActive = false;
+    return;
+  }
+
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  updateCurrentPlayerDisplay(); // Call the function to update the current player display
+}
+
+// Add this function to update the current player display
+function updateCurrentPlayerDisplay() {
+  const chanceDisplay = document.querySelector(".chance-display");
+  chanceDisplay.textContent = `Current Player: ${currentPlayer}`;
+}
+
+function checkWinner(player) {
+  const winningCombos = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]
+  ];
+
+  return winningCombos.some(combo => {
+    const [a, b, c] = combo;
+    return cells[a].textContent === player && cells[b].textContent === player && cells[c].textContent === player;
+  });
+}
+
+function checkDraw() {
+  return Array.from(cells).every(cell => cell.textContent !== "");
+}
+
+function resetGame() {
+  cells.forEach(cell => {
+    cell.textContent = "";
+    cell.classList.remove("animate-move");
+  });
+  currentPlayer = "X";
+  currentPlayerText.textContent = `Current Player: ${currentPlayer}`;
+  gameActive = true;
+}
+
+resetButton.addEventListener("click", resetGame);
+
+// Inside the showModal function
+function showModal(message) {
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+  modal.innerHTML = `
+    <div class="modal-content">
+      <p>${message}</p>
+      <button class="modal-close">Close</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  const modalCloseButton = modal.querySelector(".modal-close");
+modalCloseButton.addEventListener("click", () => {
+  document.body.removeChild(modal);
+  gameActive = true;
+  resetGame(); // Call the resetGame() function here
+});
+}
+
+let a = document.getElementsByClassName("curnt-plyr-info")
+
+a.innerHTML = `${currentPlayer}'s chance`
+
+cells.forEach(cell => {
+  cell.addEventListener("click", handleCellClick);
+});
+
+resetButton.addEventListener("click", resetGame);
+
+</script>
+
+</html>
